@@ -1,0 +1,8 @@
+{
+  "name": "@evan-kirsch/kirsch",
+  "version": "1.0.0",
+  "description": "Desc Evan Kirsch",
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  }
+}

@@ -1,4 +1,4 @@
-import { BodyRenderer } from "./common/body-renderer"
+import { NavbarRenderer } from "./common/navbar-renderer"
 
-const bodyRenderer = new BodyRenderer();
-bodyRenderer.renderMainBody();
+const navbarRenderer = new NavbarRenderer();
+navbarRenderer.renderNavbar();

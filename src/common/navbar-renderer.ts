@@ -1,3 +1,5 @@
+import { NavbarFunctions } from "./navbar-functions"
+
 export class NavbarRenderer {
 
   renderNavbar() {
@@ -5,10 +7,13 @@ export class NavbarRenderer {
     navbarNav.id = "nav-bar";
     navbarNav.classList.add("navbar");
     navbarNav.classList.add("navbar-default");
+    const navbarDiv = document.createElement("div")
+    navbarDiv.classList.add("container-fluid")
 
     const navbarHeader = this.#buildNavbarHeader();
-    const navbarNavUl = this.#buildNavbarNav();
-    navbarNav.appendChild(navbarHeader);
+    const navbarNavUl = this.#buildNavbarUl();
+    navbarNav.appendChild(navbarDiv);
+    navbarDiv.appendChild(navbarHeader)
     navbarNav.appendChild(navbarNavUl);
     (<HTMLDivElement> document.getElementById("main-body")).appendChild(navbarNav);
   }
@@ -24,22 +29,27 @@ export class NavbarRenderer {
     return navbarHeader;
   }
 
-  #buildNavbarNav() : HTMLUListElement {
-    const navbarNav = document.createElement("ul");
+  #buildNavbarUl() : HTMLUListElement {
+    const navbarUl = document.createElement("ul");
+    navbarUl.classList.add("nav");
+    navbarUl.classList.add("navbar-nav");
 
     const home = this.#buildNavbarNavLi("Home");
-    home.classList.add("active")
-    navbarNav.appendChild(home);
-    navbarNav.appendChild(this.#buildNavbarNavLi("Open Source Projects"));
-    navbarNav.appendChild(this.#buildNavbarNavLi("Closed Source Projects"));
-    navbarNav.appendChild(this.#buildNavbarNavLi("Community Development Projects"));
-    navbarNav.appendChild(this.#buildNavbarNavLi("Notes"));
+    home.classList.add("active");
+    navbarUl.appendChild(home);
+    navbarUl.appendChild(this.#buildNavbarNavLi("Open Source Projects"));
+    navbarUl.appendChild(this.#buildNavbarNavLi("Closed Source Projects"));
+    navbarUl.appendChild(this.#buildNavbarNavLi("Community Development Projects"));
+    navbarUl.appendChild(this.#buildNavbarNavLi("Notes"));
 
-    return navbarNav;
+    return navbarUl;
   }
 
   #buildNavbarNavLi(innerText : string, href : string = "#") : HTMLLIElement {
     const navbarNavLi = document.createElement("li");
+    navbarNavLi.addEventListener('click', (event : PointerEvent) => {
+      NavbarFunctions.onLiClick(event);
+    });
     const navbarNavLiA = document.createElement("a")
     navbarNavLiA.innerText = innerText;
     navbarNavLiA.href = href;

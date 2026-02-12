@@ -1,10 +1,7 @@
-name: build-deploy-static-web-page
+name: build-and-deploy-static-web-page
 on: [push]
 jobs:
-  build-package-static:
-    permissions:
-      pages: write
-      id-token: write
+  build-and-package-static:
     runs-on: ubuntu-slim
     steps:
       - uses: actions/checkout@v5
@@ -16,6 +13,13 @@ jobs:
       - uses: actions/upload-pages-artifact@v4
         with:
           path: dist/
+  deploy-static:
+    runs-on: ubuntu-slim
+    needs: build-and-package-static
+    permissions:
+      pages: write
+      id-token: write
+    steps:
       - uses: actions/deploy-pages@v4
         with:
           token: ${{ github.token }}

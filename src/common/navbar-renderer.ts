@@ -25,6 +25,7 @@ export class NavbarRenderer {
     const navbarBrand = document.createElement("a");
     navbarBrand.innerText = "Evan Kirsch";
     navbarBrand.href = "https://github.com/EvanKirsch";
+    navbarBrand.classList.add("navbar-brand")
     navbarHeader.appendChild(navbarBrand);
     return navbarHeader;
   }

@@ -1,7 +1,10 @@
-name: build-web-page
+name: build-deploy-static-web-page
 on: [push]
 jobs:
-  build-package-deploy-static-app:
+  build-package-static:
+    permissions:
+      pages: write
+      id-token: write
     runs-on: ubuntu-slim
     steps:
       - uses: actions/checkout@v5

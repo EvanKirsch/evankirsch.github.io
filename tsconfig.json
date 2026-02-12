@@ -7,7 +7,7 @@
 
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
-    "module": "nodenext",
+    "module": "esnext",
     "target": "esnext",
     "types": [],
     // For nodejs:
@@ -31,13 +31,15 @@
     // "noUnusedParameters": true,
     // "noFallthroughCasesInSwitch": true,
     // "noPropertyAccessFromIndexSignature": true,
+    "forceConsistentCasingInFileNames": true,
 
     // Recommended Options
     "strict": true,
-    "jsx": "react-jsx",
+    "jsx": "preserve",
     //"verbatimModuleSyntax": true,
     "isolatedModules": true,
     "noUncheckedSideEffectImports": true,
+    "moduleResolution": "Node",
     "moduleDetection": "force",
     "skipLibCheck": true,
   }

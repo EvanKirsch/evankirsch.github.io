@@ -1,0 +1,12 @@
+name: build-web-page
+on: [push]
+jobs:
+  build-app:
+    runs-on: ubuntu-slim
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: npm install
+      - run: npm run build

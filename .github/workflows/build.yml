@@ -1,7 +1,7 @@
 name: build-web-page
 on: [push]
 jobs:
-  build-app:
+  build-package-deploy-static-app:
     runs-on: ubuntu-slim
     steps:
       - uses: actions/checkout@v5
@@ -10,3 +10,5 @@ jobs:
           node-version: '20'
       - run: npm install
       - run: npm run build
+      - uses: actions/upload-pages-artifact@v4
+      - uses: action/deploy-pages@v4

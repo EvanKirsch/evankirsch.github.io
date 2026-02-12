@@ -11,4 +11,4 @@ jobs:
       - run: npm install
       - run: npm run build
       - uses: actions/upload-pages-artifact@v4
-      - uses: action/deploy-pages@v4
+      - uses: actions/deploy-pages@v4

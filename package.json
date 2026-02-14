@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "Desc Evan Kirsch",
   "scripts": {
-    "build": "./node_modules/vite/bin/vite.js build --base './' --outDir './dist' --emptyOutDir true"
+    "build": "./node_modules/vite/bin/vite.js build --base './' --outDir './dist' --emptyOutDir true && cp -r ./assets/ ./dist/"
   },
   "devDependencies": {
+    "@types/node": "^25.2.3",
     "typescript": "^5.9.3"
   },
   "dependencies": {

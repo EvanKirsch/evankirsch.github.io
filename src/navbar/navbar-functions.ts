@@ -1,3 +1,5 @@
+import { PageRenderer } from "../pages/page-renderer"
+
 export class NavbarFunctions {
 
   static onLiClick (event : PointerEvent) {
@@ -11,6 +13,10 @@ export class NavbarFunctions {
           }
         })
         elt.classList.add("active")
+        const filepath = elt.getAttribute("data-filepath");
+        if (filepath != null && filepath != "") {
+          (new PageRenderer()).renderPage(filepath);
+        }
       }
     }
   }

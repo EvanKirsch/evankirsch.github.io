@@ -1,4 +1,5 @@
 import { NavbarFunctions } from "./navbar-functions"
+import { PageRenderer } from "../pages/page-renderer"
 
 export class NavbarRenderer {
 
@@ -35,19 +36,21 @@ export class NavbarRenderer {
     navbarUl.classList.add("nav");
     navbarUl.classList.add("navbar-nav");
 
-    const home = this.#buildNavbarNavLi("Home");
+    const home = this.#buildNavbarNavLi("Home", "./assets/pages/home.html");
     home.classList.add("active");
+    (new PageRenderer()).renderPage("./assets/pages/home.html")
     navbarUl.appendChild(home);
-    navbarUl.appendChild(this.#buildNavbarNavLi("Open Source Projects"));
-    navbarUl.appendChild(this.#buildNavbarNavLi("Closed Source Projects"));
-    navbarUl.appendChild(this.#buildNavbarNavLi("Community Development Projects"));
-    navbarUl.appendChild(this.#buildNavbarNavLi("Notes"));
+    navbarUl.appendChild(this.#buildNavbarNavLi("Open Source Projects", "./assets/pages/osp.html"));
+    navbarUl.appendChild(this.#buildNavbarNavLi("Closed Source Projects", "./assets/pages/csp.html"));
+    navbarUl.appendChild(this.#buildNavbarNavLi("Community Development Projects", "./assets/pages/cdp.html"));
+    navbarUl.appendChild(this.#buildNavbarNavLi("Notes", "./assets/pages/notes.html"));
 
     return navbarUl;
   }
 
-  #buildNavbarNavLi(innerText : string, href : string = "#") : HTMLLIElement {
+  #buildNavbarNavLi(innerText : string, filepath : string = "", href : string = "#") : HTMLLIElement {
     const navbarNavLi = document.createElement("li");
+    navbarNavLi.setAttribute("data-filepath", filepath)
     navbarNavLi.addEventListener('click', (event : PointerEvent) => {
       NavbarFunctions.onLiClick(event);
     });

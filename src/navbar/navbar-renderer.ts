@@ -4,6 +4,14 @@ import { LanguageWidget } from "../pages/language-widget";
 
 export class NavbarRenderer {
 
+  private pages = [
+    new _Page("Home", "./assets/pages/home.html"),
+    new _Page("Open Source Projects", "./assets/pages/osp.html"),
+    new _Page("Closed Source Projects", "./assets/pages/csp.html"),
+    new _Page("Community Development Projects", "./assets/pages/cdp.html"),
+    new _Page("Notes", "./assets/pages/notes.html", (e: PointerEvent) => { new LanguageWidget().renderLanguages(); })
+  ];
+
   public renderNavbar() {
     const navbarNav = document.createElement("nav");
     navbarNav.id = "nav-bar";
@@ -25,7 +33,7 @@ export class NavbarRenderer {
     navbarHeader.id = "nav-bar-header";
     navbarHeader.classList.add("navbar-header");
     const navbarBrand = document.createElement("a");
-    navbarBrand.innerText = "Evan Kirsch";
+    navbarBrand.innerText = "EvanKirsch.org";
     navbarBrand.href = "https://github.com/EvanKirsch";
     navbarBrand.classList.add("navbar-brand")
     navbarHeader.appendChild(navbarBrand);
@@ -37,18 +45,21 @@ export class NavbarRenderer {
     navbarUl.classList.add("nav");
     navbarUl.classList.add("navbar-nav");
 
-    const home = this.buildNavbarNavLi("Home", "./assets/pages/home.html");
-    home.classList.add("active");
-    (new PageRenderer()).renderPage("./assets/pages/home.html")
-    navbarUl.appendChild(home);
-    navbarUl.appendChild(this.buildNavbarNavLi("Open Source Projects", "./assets/pages/osp.html"));
-    navbarUl.appendChild(this.buildNavbarNavLi("Closed Source Projects", "./assets/pages/csp.html"));
-    navbarUl.appendChild(this.buildNavbarNavLi("Community Development Projects", "./assets/pages/cdp.html"));
-    const notesTab = this.buildNavbarNavLi("Notes", "./assets/pages/notes.html");
-    navbarUl.appendChild(notesTab);
-    notesTab.addEventListener('click', (event : PointerEvent) => {
-      new LanguageWidget().renderLanguages();
-    });
+    let curPage;
+    for(let i = 0; i < this.pages.length; i++) {
+      curPage = this.pages[i]
+
+      if (curPage != null) {
+        let elt = navbarUl.appendChild(this.buildNavbarNavLi(curPage.label, curPage.file))
+        elt.addEventListener('click', curPage.hook);
+
+        // activate and render 0th page
+        if (i == 0) {
+          elt.classList.add("active");
+          (new PageRenderer()).renderPage(curPage.file);
+        }
+      }
+    }
 
     return navbarUl;
   }
@@ -67,4 +78,16 @@ export class NavbarRenderer {
     return navbarNavLi; 
   }
 
+}
+
+class _Page {
+  label : string;
+  file : string;
+  hook : any;
+
+  constructor(label : string, file: string, hook: any = (e : PointerEvent) => {}) {
+    this.label = label;
+    this.file = file;
+    this.hook = hook;
+  }
 }

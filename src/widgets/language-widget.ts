@@ -1,13 +1,13 @@
 import { GithubRepoApis } from "../api/github-repo-apis"
-import { WidgetInterface } from "../widget-interface";
-import { PageManager } from "./page-manager";
+import { WidgetInterface } from "./widget-interface";
+import { PageManager } from "../pages/page-manager";
 
 export class LanguageWidget implements WidgetInterface<void> {
 
-  public async render() {
+  public async renderOn(targetEltId : string) {
     const gApi = new GithubRepoApis();
     const pageManager = PageManager.getInstance();
-    const langElt = await pageManager.getElementById("programming-languages");
+    const langElt = await pageManager.getElementById(targetEltId);
 
     langElt.innerText = "..."
     const myLanguages = await gApi.getPersonalLanguages();

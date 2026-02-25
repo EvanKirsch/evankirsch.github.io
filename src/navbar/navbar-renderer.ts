@@ -1,16 +1,16 @@
 import { NavbarFunctions } from "./navbar-functions"
 import { PageRenderer } from "../pages/page-renderer"
-import { LanguageWidget } from "../pages/language-widget";
-import { ProjectWidget } from "../pages/project-widget";
+import { LanguageWidget } from "../widgets/language-widget";
+import { ProjectWidget } from "../widgets/project-widget";
 
 export class NavbarRenderer {
 
   private pages = [
     new _Page("Home", "./assets/pages/home.html"),
-    new _Page("Open Source Projects", "./assets/pages/osp.html", (e: PointerEvent) => { new ProjectWidget().render();}),
+    new _Page("Open Source Projects", "./assets/pages/osp.html", (e: PointerEvent) => { new ProjectWidget().renderOn("open-source-projects");}),
     new _Page("Closed Source Projects", "./assets/pages/csp.html"),
     new _Page("Community Development Projects", "./assets/pages/cdp.html"),
-    new _Page("Notes", "./assets/pages/notes.html", (e: PointerEvent) => { new LanguageWidget().render(); })
+    new _Page("Notes", "./assets/pages/notes.html", (e: PointerEvent) => { new LanguageWidget().renderOn("programming-languages"); })
   ];
 
   public renderNavbar() {

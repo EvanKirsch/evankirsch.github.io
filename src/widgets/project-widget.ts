@@ -1,5 +1,5 @@
-import { WidgetInterface } from "../widget-interface";
-import { PageManager } from "./page-manager";
+import { WidgetInterface } from "./widget-interface";
+import { PageManager } from "../pages/page-manager";
 
 export class ProjectWidget implements WidgetInterface<void> {
 
@@ -16,9 +16,9 @@ export class ProjectWidget implements WidgetInterface<void> {
     new _Project("stamps", "Python script that uses easyocr to read first day cover catalogs"),
   ];
 
-  async render(): Promise<void> {
+  async renderOn(targetEltId : string): Promise<void> {
     const pageManager = PageManager.getInstance();
-    const osp = await pageManager.getElementById("open-source-projects");
+    const osp = await pageManager.getElementById(targetEltId);
 
     this.projects.forEach(elt => {
       osp.appendChild(this.buildProjectElement(elt))

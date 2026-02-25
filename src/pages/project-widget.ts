@@ -16,10 +16,6 @@ export class ProjectWidget implements WidgetInterface<void> {
     new _Project("stamps", "Python script that uses easyocr to read first day cover catalogs"),
   ];
 
-  // <p>
-  // <a href="https://github.com/EvanKirsch/coffeeride">coffee-ride</a> - Optimizes bike rides for maximum coffee stops
-  // </p>
-
   async render(): Promise<void> {
     const pageManager = PageManager.getInstance();
     const osp = await pageManager.getElementById("open-source-projects");

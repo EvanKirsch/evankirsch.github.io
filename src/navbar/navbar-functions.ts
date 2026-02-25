@@ -1,4 +1,4 @@
-import { PageRenderer } from "../pages/page-renderer"
+import { PageRenderer } from "../pagination/page-renderer"
 
 export class NavbarFunctions {
 

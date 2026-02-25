@@ -1,12 +1,13 @@
 import { NavbarFunctions } from "./navbar-functions"
-import { PageRenderer } from "../pages/page-renderer"
+import { PageRenderer } from "../pagination/page-renderer"
 import { LanguageWidget } from "../widgets/language-widget";
 import { ProjectWidget } from "../widgets/project-widget";
+import { ContactInfoWidget } from "../widgets/contact-info-widget";
 
 export class NavbarRenderer {
 
   private pages = [
-    new _Page("Home", "./assets/pages/home.html"),
+    new _Page("Home", "./assets/pages/home.html", (e: PointerEvent) => { new ContactInfoWidget().renderOn("contact-info")}),
     new _Page("Open Source Projects", "./assets/pages/osp.html", (e: PointerEvent) => { new ProjectWidget().renderOn("open-source-projects");}),
     new _Page("Closed Source Projects", "./assets/pages/csp.html"),
     new _Page("Community Development Projects", "./assets/pages/cdp.html"),
@@ -58,6 +59,7 @@ export class NavbarRenderer {
         if (i == 0) {
           elt.classList.add("active");
           (new PageRenderer()).renderPage(curPage.file);
+          curPage.hook();
         }
       }
     }

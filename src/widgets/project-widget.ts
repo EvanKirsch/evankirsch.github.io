@@ -1,5 +1,5 @@
 import { WidgetInterface } from "./widget-interface";
-import { PageManager } from "../pages/page-manager";
+import { PageManager } from "../pagination/page-manager";
 
 export class ProjectWidget implements WidgetInterface<void> {
 
@@ -36,7 +36,6 @@ export class ProjectWidget implements WidgetInterface<void> {
     p.appendChild(a);
     p.append(" - ");
     p.append(project.description);
-    console.log("p", p)
 
     return p;
   }

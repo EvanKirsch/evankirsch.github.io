@@ -1,6 +1,6 @@
 import { GithubRepoApis } from "../api/github-repo-apis"
 import { WidgetInterface } from "./widget-interface";
-import { PageManager } from "../pages/page-manager";
+import { PageManager } from "../pagination/page-manager";
 
 export class LanguageWidget implements WidgetInterface<void> {
 

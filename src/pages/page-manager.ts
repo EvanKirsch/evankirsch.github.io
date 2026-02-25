@@ -17,7 +17,7 @@ export class PageManager {
   public async getElementById(id : string) : Promise<HTMLElement> {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        const elt = document.getElementById("programming-languages");
+        const elt = document.getElementById(id);
         if (!!elt) {
           resolve(elt);
         } else {

@@ -1,12 +1,17 @@
 import { GithubRepoApis } from "../api/github-repo-apis"
+import { PageManager } from "./page-manager";
 
 export class LanguageWidget {
 
   public async renderLanguages() {
     const gApi = new GithubRepoApis();
-    const myLanguages = await gApi.getPersonalLanguages();
+    const pageManager = PageManager.getInstance();
+    const langElt = await pageManager.getElementById("programming-languages");
 
-    const langElt = await this._getElementById("programming-languages");
+    langElt.innerText = "..."
+    const myLanguages = await gApi.getPersonalLanguages();
+    langElt.innerText = ""
+
     if (langElt != null) {
       langElt.appendChild(this.buildLanguageWidget(myLanguages));
     }
@@ -74,19 +79,6 @@ export class LanguageWidget {
     thead.appendChild(tr);
 
     return thead;
-  }
-
-  async _getElementById(id : string) : Promise<HTMLElement> {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        const elt = document.getElementById("programming-languages");
-        if (!!elt) {
-          resolve(elt);
-        } else {
-          reject("Failed to find element: " + id);
-        }
-      }, 100);
-    });
   }
 
 }

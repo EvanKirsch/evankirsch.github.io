@@ -33,6 +33,14 @@ export class GithubRepoApis {
     return languageBytes;
   }
 
+  public async preloadLaugaugeApis() {
+    const repoEndpoints = await this.getMyRepoEndpoints();
+    for (let i in repoEndpoints) {
+      this.getRepoLanguages(repoEndpoints[i]);
+
+    }
+  }
+
   private async getMyRepoEndpoints() : Promise<Array<String>> {
     const response = <OctokitResponse<any, number>> await this.requestManager
       .request("GET https://api.github.com/users/evankirsch/repos", this.octokit.request, this.octokit);

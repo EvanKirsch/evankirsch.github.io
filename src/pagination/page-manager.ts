@@ -14,6 +14,7 @@ export class PageManager {
     return PageManager.manager;
   }
 
+  // TODO - fix
   public async getElementById(id : string) : Promise<HTMLElement> {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -23,7 +24,7 @@ export class PageManager {
         } else {
           reject("Failed to find element: " + id);
         }
-      }, 100);
+      }, 200);
     });
   }
 

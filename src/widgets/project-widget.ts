@@ -11,6 +11,7 @@ export class ProjectWidget implements WidgetInterface<void> {
     new _Project("fs25-bank-account-interest", "FS25 bank account interest mod"),
     new _Project("fs25-nwt", "FS25 mod that adds a balance sheet and net worth tracker"),
     new _Project("fs25-stats-extended", "FS25 stats exteneded mod"),
+    new _Project("github-langs-widget", "Uses github api to build language by percent report"),
     new _Project("sbsim", "Simple python sports book simulator"),
     new _Project("st", "Personal fork of suckless's st with added patches so it looks prettier"),
     new _Project("stamps", "Python script that uses easyocr to read first day cover catalogs"),

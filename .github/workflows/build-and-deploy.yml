@@ -1,5 +1,8 @@
 name: build-and-deploy-static-web-page
-on: [push]
+on:
+  push:
+    branches:
+      - main
 jobs:
   build-and-package-static:
     runs-on: ubuntu-slim

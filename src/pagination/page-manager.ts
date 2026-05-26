@@ -14,18 +14,10 @@ export class PageManager {
     return PageManager.manager;
   }
 
-  // TODO - fix
   public async getElementById(id : string) : Promise<HTMLElement> {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        const elt = document.getElementById(id);
-        if (!!elt) {
-          resolve(elt);
-        } else {
-          reject("Failed to find element: " + id);
-        }
-      }, 200);
-    });
+    const elt = document.getElementById(id);
+    if (!elt) throw new Error("Failed to find element: " + id);
+    return elt;
   }
 
 }

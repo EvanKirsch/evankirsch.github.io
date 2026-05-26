@@ -1,5 +1,6 @@
 import { WidgetInterface } from "./widget-interface";
 import { PageManager } from "../pagination/page-manager";
+import { GithubRepoApis } from "../api/github-repo-apis";
 
 export class ProjectWidget implements WidgetInterface<void> {
 
@@ -17,39 +18,77 @@ export class ProjectWidget implements WidgetInterface<void> {
     new _Project("stamps", "Python script that uses easyocr to read first day cover catalogs"),
   ];
 
-  async renderOn(targetEltId : string): Promise<void> {
+  async renderOn(targetEltId: string): Promise<void> {
     const pageManager = PageManager.getInstance();
     const osp = await pageManager.getElementById(targetEltId);
 
-    this.projects.forEach(elt => {
-      osp.appendChild(this.buildProjectElement(elt))
-    })
-  
+    const row = document.createElement("div");
+    row.classList.add("row", "project-row");
+    osp.appendChild(row);
+
+    const api = new GithubRepoApis();
+    await Promise.all(this.projects.map(async project => {
+      const col = await this.buildProjectElement(project, api);
+      row.appendChild(col);
+    }));
   }
 
-  private buildProjectElement(project : _Project) : HTMLElement {
+  private async buildProjectElement(project: _Project, api: GithubRepoApis): Promise<HTMLElement> {
+    const col = document.createElement("div");
+    col.classList.add("col-sm-6", "col-md-4");
 
-    const a = document.createElement("a");
-    a.href = "https://github.com/EvanKirsch/" + project.label;
-    a.innerText = project.label;
+    const panel = document.createElement("div");
+    panel.classList.add("panel", "panel-default", "project-panel");
 
-    const p = document.createElement("p");
-    p.appendChild(a);
-    p.append(" - ");
-    p.append(project.description);
+    // heading
+    const heading = document.createElement("div");
+    heading.classList.add("panel-heading");
+    const link = document.createElement("a");
+    link.href = "https://github.com/EvanKirsch/" + project.label;
+    link.innerText = project.label;
+    link.target = "_blank";
+    heading.appendChild(link);
 
-    return p;
+    // body
+    const body = document.createElement("div");
+    body.classList.add("panel-body");
+    body.innerText = project.description;
+
+    // footer with live GitHub data
+    const footer = document.createElement("div");
+    footer.classList.add("panel-footer");
+    try {
+      const { stars, language } = await api.getRepoMetadata(project.label);
+      const starsSpan = document.createElement("span");
+      starsSpan.innerText = `★ ${stars}`;
+      footer.appendChild(starsSpan);
+      if (language) {
+        footer.append("  ·  ");
+        const langBadge = document.createElement("span");
+        langBadge.classList.add("label", "label-info");
+        langBadge.innerText = language;
+        footer.appendChild(langBadge);
+      }
+    } catch (e) {
+      console.error(`Failed to load metadata for ${project.label}:`, e);
+      footer.innerText = "";
+    }
+
+    panel.appendChild(heading);
+    panel.appendChild(body);
+    panel.appendChild(footer);
+    col.appendChild(panel);
+    return col;
   }
 
 }
 
 class _Project {
-  label : string;
+  label: string;
   description: string;
 
-  constructor(label : string, description: string) {
+  constructor(label: string, description: string) {
     this.label = label;
     this.description = description;
   }
-
 }

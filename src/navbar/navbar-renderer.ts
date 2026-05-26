@@ -1,4 +1,3 @@
-import { NavbarFunctions } from "./navbar-functions"
 import { PageRenderer } from "../pagination/page-renderer"
 import { LanguageWidget } from "../widgets/language-widget";
 import { ProjectWidget } from "../widgets/project-widget";
@@ -7,11 +6,11 @@ import { ContactInfoWidget } from "../widgets/contact-info-widget";
 export class NavbarRenderer {
 
   private pages = [
-    new _Page("Home", "./assets/pages/home.html", (e: PointerEvent) => { new ContactInfoWidget().renderOn("contact-info")}),
-    new _Page("Open Source Projects", "./assets/pages/osp.html", (e: PointerEvent) => { new ProjectWidget().renderOn("open-source-projects");}),
-    new _Page("Closed Source Projects", "./assets/pages/csp.html"),
-    new _Page("Community Development Projects", "./assets/pages/cdp.html"),
-    new _Page("Notes", "./assets/pages/notes.html", (e: PointerEvent) => { new LanguageWidget().renderOn("programming-languages"); })
+    new _Page("Home", "./assets/pages/home.html", "home", () => { new ContactInfoWidget().renderOn("contact-info")}),
+    new _Page("Open Source Projects", "./assets/pages/osp.html", "open-source-projects", () => { new ProjectWidget().renderOn("open-source-projects");}),
+    new _Page("Closed Source Projects", "./assets/pages/csp.html", "closed-source-projects"),
+    new _Page("Community Development Projects", "./assets/pages/cdp.html", "community-development-projects"),
+    new _Page("Notes", "./assets/pages/notes.html", "notes", () => { new LanguageWidget().renderOn("programming-languages"); })
   ];
 
   public renderNavbar() {
@@ -28,6 +27,8 @@ export class NavbarRenderer {
     navbarDiv.appendChild(navbarHeader)
     navbarNav.appendChild(navbarNavUl);
     (<HTMLDivElement> document.getElementById("main-body")).appendChild(navbarNav);
+
+    window.addEventListener("hashchange", () => this.activatePageByHash(navbarNavUl));
   }
 
   private buildNavbarHeader() : HTMLDivElement {
@@ -47,38 +48,44 @@ export class NavbarRenderer {
     navbarUl.classList.add("nav");
     navbarUl.classList.add("navbar-nav");
 
-    let curPage;
     for(let i = 0; i < this.pages.length; i++) {
-      curPage = this.pages[i]
-
+      const curPage = this.pages[i];
       if (curPage != null) {
-        let elt = navbarUl.appendChild(this.buildNavbarNavLi(curPage.label, curPage.file))
-        elt.addEventListener('click', curPage.hook);
-
-        // activate and render 0th page
-        if (i == 0) {
-          elt.classList.add("active");
-          (new PageRenderer()).renderPage(curPage.file);
-          curPage.hook();
-        }
+        navbarUl.appendChild(this.buildNavbarNavLi(curPage.label, curPage.file, curPage.slug));
       }
     }
+
+    const initialSlug = window.location.hash.replace("#", "") || this.pages[0]?.slug;
+    window.location.hash = initialSlug ?? "";
+    this.activatePageByHash(navbarUl);
 
     return navbarUl;
   }
 
-  private buildNavbarNavLi(innerText : string, filepath : string = "", href : string = "#") : HTMLLIElement {
-    const navbarNavLi = document.createElement("li");
-    navbarNavLi.setAttribute("data-filepath", filepath)
-    navbarNavLi.addEventListener('click', (event : PointerEvent) => {
-      NavbarFunctions.onLiClick(event);
-    });
-    const navbarNavLiA = document.createElement("a")
-    navbarNavLiA.innerText = innerText;
-    navbarNavLiA.href = href;
+  private async activatePageByHash(navbarUl: HTMLUListElement) {
+    const slug = window.location.hash.replace("#", "");
+    let pageIndex = this.pages.findIndex(p => p.slug === slug);
+    if (pageIndex < 0) {
+      pageIndex = 0;
+    }
 
+    const page = this.pages[pageIndex];
+    navbarUl.querySelectorAll("li").forEach(li => li.classList.remove("active"));
+    navbarUl.querySelectorAll("li")[pageIndex]?.classList.add("active");
+    if(page !== undefined) {
+      await new PageRenderer().renderPage(page.file);
+      page.hook();
+    }
+  }
+
+  private buildNavbarNavLi(innerText : string, filepath : string = "", slug : string = "") : HTMLLIElement {
+    const navbarNavLi = document.createElement("li");
+    navbarNavLi.setAttribute("data-filepath", filepath);
+    const navbarNavLiA = document.createElement("a");
+    navbarNavLiA.innerText = innerText;
+    navbarNavLiA.href = `#${slug}`;
     navbarNavLi.appendChild(navbarNavLiA);
-    return navbarNavLi; 
+    return navbarNavLi;
   }
 
 }
@@ -86,11 +93,13 @@ export class NavbarRenderer {
 class _Page {
   label : string;
   file : string;
-  hook : any;
+  slug : string;
+  hook : () => void;
 
-  constructor(label : string, file: string, hook: any = (e : PointerEvent) => {}) {
+  constructor(label : string, file: string, slug: string, hook: () => void = () => {}) {
     this.label = label;
     this.file = file;
+    this.slug = slug;
     this.hook = hook;
   }
 }

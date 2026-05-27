@@ -4,10 +4,10 @@ import { PageManager } from "../pagination/page-manager";
 export class SocialsWidget implements WidgetInterface<void> {
 
   private socials: _Social[] = [
-    new _Social("My GitHub", "https://github.com/EvanKirsch" ),
+    // new _Social("My GitHub", "https://github.com/EvanKirsch" ),
     new _Social("My Dotfiles", "https://github.com/EvanKirsch/dotfiles"),
     new _Social("My Resume", "/assets/evankirsch.pdf", "EvanKirsch_Resume.pdf"),
-    new _Social("kirsch.j.evan@gmail.com", "mailto:kirsch.j.evan+mailto@gmail.com"),
+    // new _Social("kirsch.j.evan@gmail.com", "mailto:kirsch.j.evan+mailto@gmail.com"),
   ];
 
   async renderOn(targetEltId: string): Promise<void> {

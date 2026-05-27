@@ -7,6 +7,16 @@ import { SocialsWidget } from "../widgets/socials-widget";
 
 export class NavbarRenderer {
 
+  private socials = [
+    new _Social("GitHub", "fa-brands fa-github", "https://github.com/EvanKirsch"),
+    new _Social("LinkedIn", "fa-brands fa-linkedin", "https://www.linkedin.com/in/kirsch-j-evan/"),
+    new _Social("Instagram", "fa-brands fa-instagram", "https://www.instagram.com/evankirsch_birds/"),
+    // new _Social("Lichess", "fa-solid fa-chess-knight", "https://lichess.org/@/Evan_Kirsch"),
+    // new _Social("Strava", "fa-brands fa-strava", "https://www.strava.com/athletes/138548716"),
+    // new _Social("eBird", "fa-solid fa-binoculars", "https://ebird.org/profile/MjM3MDAzNw/US"),
+    new _Social("Email", "fa-solid fa-envelope", "mailto:kirsch.j.evan+mailto@gmail.com")
+  ];
+
   private pages = [
     new _Page("Home", "./assets/pages/home.html", "home", () => {
       new HeroTaglineWidget().renderOn("hero-tagline");
@@ -41,11 +51,28 @@ export class NavbarRenderer {
     const navbarHeader = document.createElement("div");
     navbarHeader.id = "nav-bar-header";
     navbarHeader.classList.add("navbar-header");
+
     const navbarBrand = document.createElement("a");
     navbarBrand.innerText = "EvanKirsch.org";
-    navbarBrand.href = "https://github.com/EvanKirsch";
-    navbarBrand.classList.add("navbar-brand")
+    navbarBrand.href = "#home";
+    navbarBrand.classList.add("navbar-brand");
     navbarHeader.appendChild(navbarBrand);
+
+    const socialsContainer = document.createElement("div");
+    socialsContainer.id = "navbar-socials";
+    this.socials.forEach(social => {
+      const a = document.createElement("a");
+      a.href = social.href;
+      a.target = "_blank";
+      a.setAttribute("aria-label", social.label);
+      a.classList.add("navbar-brand-social");
+      const icon = document.createElement("i");
+      icon.className = social.icon;
+      a.appendChild(icon);
+      socialsContainer.appendChild(a);
+    });
+    navbarHeader.appendChild(socialsContainer);
+
     return navbarHeader;
   }
 
@@ -107,5 +134,17 @@ class _Page {
     this.file = file;
     this.slug = slug;
     this.hook = hook;
+  }
+}
+
+class _Social {
+  label: string;
+  icon: string;
+  href: string;
+
+  constructor(label: string, icon: string, href: string) {
+    this.icon = icon;
+    this.label = label;
+    this.href = href;
   }
 }

@@ -7,6 +7,23 @@ body {
   font-weight: bold;
 }
 
+#nav-bar-header {
+  width: 100%;
+}
+
+#navbar-socials {
+  float: right;
+}
+
+.navbar-brand-social {
+  padding: 10px 8px;
+  font-size: 28px;
+  display: inline-block;
+  line-height: 28px;
+  vertical-align: middle;
+  color: inherit;
+}
+
 .project-row {
   display: flex;
   flex-wrap: wrap;

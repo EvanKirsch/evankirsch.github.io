@@ -28,7 +28,7 @@ export class NavbarRenderer {
     }),
     new _Page("Open Source Projects", "./assets/pages/osp.html", "open-source-projects", () => { new ProjectWidget().renderOn("open-source-projects");}),
     new _Page("Closed Source Projects", "./assets/pages/csp.html", "closed-source-projects"),
-    new _Page("Community Development Projects", "./assets/pages/cdp.html", "community-development-projects"),
+    new _Page("Community Resources", "./assets/pages/cdp.html", "community-resources"),
     new _Page("Notes", "./assets/pages/notes.html", "notes", () => { new LanguageWidget().renderOn("programming-languages"); })
   ];
 

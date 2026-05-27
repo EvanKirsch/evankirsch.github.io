@@ -20,6 +20,7 @@ export class NavbarRenderer {
 
   private pages = [
     new _Page("Home", "./assets/pages/home.html", "home", () => {
+      new LanguageWidget().renderOn("programming-languages"); // load this first to reduce api use
       new HeroTaglineWidget().renderOn("hero-tagline");
       new HomeSummaryWidget().renderOn("home-summary");
       new SocialsWidget().renderOn("socials");

@@ -1,8 +1,8 @@
-# evankirsch.github.io
+# :house: evankirsch.org
 
 Personal portfolio website for [evankirsch.org](https://evankirsch.org), compiled from TypeScript to static files via Vite and deployed to GitHub Pages on every push.
 
-## Commands
+## :desktop_computer: Commands
 
 ```bash
 npm install          # install dependencies
@@ -10,7 +10,7 @@ npm run build        # compile TS via Vite → dist/, then copy assets/
 npx http-server      # run app and serve files in `dist/`
 ```
 
-## Structure
+## :hammer_and_wrench: Structure
 
 The app is a single-page app where the "pages" are static HTML files in `assets/pages/` that get fetched and injected into the DOM on navbar clicks.
 
@@ -36,7 +36,7 @@ The app is a single-page app where the "pages" are static HTML files in `assets/
 
 **Deployment**: see `.github/workflows/build-and-deploy.yml`
 
-## Adding a new page
+## :spiral_notepad: Adding a new page
 
 1. Create the HTML file in `assets/pages/`.
 2. Add a `_Page` entry to the `pages` array in `src/navbar/navbar-renderer.ts`.

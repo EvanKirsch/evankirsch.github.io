@@ -54,12 +54,16 @@ export class GithubRepoApis {
     return myEndpoints;
   }
 
-  public async getRepoMetadata(repoName: string): Promise<{ stars: number, language: string | null }> {
+  public async getRepoMetadata(repoName: string): Promise<{ stars: number, language: string | null, license: string | null }> {
     const response = await this.requestManager.request(
       `GET https://api.github.com/repos/EvanKirsch/${repoName}`,
       this.octokit.request, this.octokit
     );
-    return { stars: response.data.stargazers_count, language: response.data.language };
+    return {
+      stars: response.data.stargazers_count,
+      language: response.data.language,
+      license: response.data.license?.spdx_id ?? null,
+    };
   }
 
   private async getRepoLanguages(repo : String | undefined) : Promise<Object> {

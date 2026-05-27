@@ -59,7 +59,7 @@ export class ProjectWidget implements WidgetInterface<void> {
     const footer = document.createElement("div");
     footer.classList.add("panel-footer");
     try {
-      const { stars, language } = await api.getRepoMetadata(project.label);
+      const { stars, language, license } = await api.getRepoMetadata(project.label);
       const starsSpan = document.createElement("span");
       starsSpan.innerText = `★ ${stars}`;
       footer.appendChild(starsSpan);
@@ -69,6 +69,13 @@ export class ProjectWidget implements WidgetInterface<void> {
         langBadge.classList.add("label", "label-info");
         langBadge.innerText = language;
         footer.appendChild(langBadge);
+      }
+      if (license) {
+        footer.append("  ·  ");
+        const licenseBadge = document.createElement("span");
+        licenseBadge.classList.add("label", "label-default");
+        licenseBadge.innerText = license;
+        footer.appendChild(licenseBadge);
       }
     } catch (e) {
       console.error(`Failed to load metadata for ${project.label}:`, e);

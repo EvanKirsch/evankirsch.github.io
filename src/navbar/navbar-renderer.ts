@@ -23,6 +23,7 @@ export class NavbarRenderer {
       new HeroTaglineWidget().renderOn("hero-tagline");
       new HomeSummaryWidget().renderOn("home-summary");
       new SocialsWidget().renderOn("socials");
+      new ProjectWidget().renderOn("open-source-projects");
     }),
     new _Page("Open Source Projects", "./assets/pages/osp.html", "open-source-projects", () => { new ProjectWidget().renderOn("open-source-projects");}),
     new _Page("Closed Source Projects", "./assets/pages/csp.html", "closed-source-projects"),

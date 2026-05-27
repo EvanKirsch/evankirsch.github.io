@@ -2,11 +2,19 @@ import { PageRenderer } from "../pagination/page-renderer"
 import { LanguageWidget } from "../widgets/language-widget";
 import { ProjectWidget } from "../widgets/project-widget";
 import { ContactInfoWidget } from "../widgets/contact-info-widget";
+import { HeroTaglineWidget } from "../widgets/hero-tagline-widget";
+import { HomeSummaryWidget } from "../widgets/home-summary-widget";
+import { SocialsWidget } from "../widgets/socials-widget";
 
 export class NavbarRenderer {
 
   private pages = [
-    new _Page("Home", "./assets/pages/home.html", "home", () => { new ContactInfoWidget().renderOn("contact-info")}),
+    new _Page("Home", "./assets/pages/home.html", "home", () => {
+      new HeroTaglineWidget().renderOn("hero-tagline");
+      new HomeSummaryWidget().renderOn("home-summary");
+      new SocialsWidget().renderOn("socials");
+      new ContactInfoWidget().renderOn("contact-info");
+    }),
     new _Page("Open Source Projects", "./assets/pages/osp.html", "open-source-projects", () => { new ProjectWidget().renderOn("open-source-projects");}),
     new _Page("Closed Source Projects", "./assets/pages/csp.html", "closed-source-projects"),
     new _Page("Community Development Projects", "./assets/pages/cdp.html", "community-development-projects"),

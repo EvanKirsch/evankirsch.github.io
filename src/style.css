@@ -31,3 +31,15 @@ body {
   font-size: 13px;
   color: #666;
 }
+
+.hero-tagline {
+  font-size: 18px;
+  color: #555;
+  margin: 12px 0;
+  text-align: center;
+}
+
+.hero-tagline-seperator {
+  color: #bbb;
+  margin: 0 8px;
+}

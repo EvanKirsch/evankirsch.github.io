@@ -4,9 +4,9 @@ import { PageManager } from "../pagination/page-manager";
 export class HeroTaglineWidget implements WidgetInterface<void> {
 
   private taglines = [
-    "Financial Services Dev",
+    "Open Source Tinkerer",
+    "Financial Services Developer",
     "Desktop Linux Evangelist",
-    "Open Source Dev",
   ];
 
   async renderOn(targetEltId: string): Promise<void> {

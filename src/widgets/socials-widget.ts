@@ -6,8 +6,8 @@ export class SocialsWidget implements WidgetInterface<void> {
   private socials: _Social[] = [
     // new _Social("My GitHub", "https://github.com/EvanKirsch" ),
     new _Social("My Dotfiles", "https://github.com/EvanKirsch/dotfiles"),
-    new _Social("My Resume", "/assets/evankirsch.pdf", "EvanKirsch_Resume.pdf"),
-    // new _Social("kirsch.j.evan@gmail.com", "mailto:kirsch.j.evan+mailto@gmail.com"),
+    new _Social("My Resume (for humans)", "/assets/evankirsch.pdf", "EvanKirsch_Short_Resume.pdf"),
+    new _Social("My Resume (for robots)", "https://github.com/EvanKirsch/resume/releases/latest/download/resume.pdf", "EvanKirsch_Long_Resume.pdf"),
   ];
 
   async renderOn(targetEltId: string): Promise<void> {

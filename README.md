@@ -20,15 +20,18 @@ The app is a single-page app where the "pages" are static HTML files in `assets/
 
 **Page switching** (`src/navbar/`):
 - `NavbarRenderer` holds the pages array — each entry has a label, an HTML file path, and an optional post-render hook.
-- On click, `NavbarFunctions.onLiClick` updates active state, then `PageRenderer.renderPage` fetches the HTML file and sets `#open-page`.
+- On hash change, `activatePageByHash` updates active state, then `PageRenderer.renderPage` fetches the HTML file and injects it into the DOM.
 - The post-render hook fires next, mounting any widgets the page needs.
 
 **Widgets** (`src/widgets/`):
 - All implement `WidgetInterface<T>` with a `renderOn(targetEltId)` method.
 - `LanguageWidget` calls GitHub API to show language breakdown by bytes.
-- `ProjectWidget` renders a hardcoded project list with links.
-- `ContactInfoWidget` renders contact info.
-- They use `PageManager.getElementById` (which polls with a 200ms timeout) to wait for the injected HTML to be present before appending content. This is a bug that can create race conditions.
+- `ProjectWidget` renders open source projects with live GitHub metadata (stars, language, license).
+- `ClosedSourceProjectWidget` renders a static list of closed source projects with a "Closed Source" badge.
+- `HeroTaglineWidget` renders the rotating tagline on the home page.
+- `HomeSummaryWidget` renders the summary blurb on the home page.
+- `SocialsWidget` renders social links on the home page.
+- They use `PageManager.getElementById` to wait for the injected HTML to be present before appending content.
 
 **GitHub API** (`src/api/`):
 - `RequestManager` is a singleton in-memory cache keyed by URL — avoids duplicate API calls across widget renders and preloading.

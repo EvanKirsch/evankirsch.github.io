@@ -11,7 +11,7 @@ export class NavbarRenderer {
   private socials = [
     new _Social("GitHub", "fa-brands fa-github", "https://github.com/EvanKirsch"),
     new _Social("LinkedIn", "fa-brands fa-linkedin", "https://www.linkedin.com/in/kirsch-j-evan/"),
-    new _Social("YouTube", "fa-brands fa-youtube", "https://www.youtube.com/@evankirsch3227/videos"),
+    new _Social("YouTube", "fa-brands fa-youtube", "https://www.youtube.com/channel/UCX0mgA1nEd7CzpOozJ1qErw"),
     new _Social("Instagram", "fa-brands fa-instagram", "https://www.instagram.com/evankirsch_birds/"),
     // new _Social("Lichess", "fa-solid fa-chess-knight", "https://lichess.org/@/Evan_Kirsch"),
     // new _Social("Strava", "fa-brands fa-strava", "https://www.strava.com/athletes/138548716"),

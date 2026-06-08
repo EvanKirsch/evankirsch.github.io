@@ -44,11 +44,23 @@ export class ProjectWidget implements WidgetInterface<void> {
     // heading
     const heading = document.createElement("div");
     heading.classList.add("panel-heading");
+    heading.style.display = "flex";
+    heading.style.justifyContent = "space-between";
+    heading.style.alignItems = "center";
     const link = document.createElement("a");
     link.href = "https://github.com/EvanKirsch/" + project.label;
     link.innerText = project.label;
     link.target = "_blank";
     heading.appendChild(link);
+    const release = await api.getLatestRelease(project.label);
+    if (release) {
+      const releaseLink = document.createElement("a");
+      releaseLink.href = release.url;
+      releaseLink.target = "_blank";
+      releaseLink.classList.add("label", "label-success");
+      releaseLink.innerText = release.tag;
+      heading.appendChild(releaseLink);
+    }
 
     // body
     const body = document.createElement("div");

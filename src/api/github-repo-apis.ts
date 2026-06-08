@@ -66,6 +66,18 @@ export class GithubRepoApis {
     };
   }
 
+  public async getLatestRelease(repoName: string): Promise<{ tag: string, url: string } | null> {
+    try {
+      const response = await this.requestManager.request(
+        `GET https://api.github.com/repos/EvanKirsch/${repoName}/releases/latest`,
+        this.octokit.request, this.octokit
+      );
+      return { tag: response.data.tag_name, url: response.data.html_url };
+    } catch {
+      return null;
+    }
+  }
+
   private async getRepoLanguages(repo : String | undefined) : Promise<Object> {
     const response = await this.requestManager
        .request("GET " + repo + "/languages", this.octokit.request, this.octokit);

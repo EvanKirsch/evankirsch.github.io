@@ -10,7 +10,7 @@ export class GithubRepoApis {
   ]
 
   private requestManager = RequestManager.getInstance();
-  private octokit = new Octokit({});
+  private octokit = new Octokit({ auth: import.meta.env.VITE_GITHUB_TOKEN });
 
   public async getPersonalLanguages() {
     const repoEndpoints = await this.getMyRepoEndpoints();

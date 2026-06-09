@@ -13,6 +13,8 @@ jobs:
           node-version: '20'
       - run: npm install
       - run: npm run build
+        env:
+          VITE_GITHUB_TOKEN: ${{ secrets.PUBLIC_GITHUB_TOKEN }}
       - uses: actions/upload-pages-artifact@v4
         with:
           path: dist/

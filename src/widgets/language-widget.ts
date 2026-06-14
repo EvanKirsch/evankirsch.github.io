@@ -9,12 +9,14 @@ export class LanguageWidget implements WidgetInterface<void> {
     const pageManager = PageManager.getInstance();
     const langElt = await pageManager.getElementById(targetEltId);
 
-    langElt.innerText = "..."
-    const myLanguages = await gApi.getPersonalLanguages();
-    langElt.innerText = ""
-
-    if (langElt != null) {
+    try {
+      const myLanguages = await gApi.getPersonalLanguages();
+      langElt.innerText = "";
       langElt.appendChild(this.buildLanguageWidget(myLanguages));
+    } catch (e) {
+      console.error("Failed to load language data:", e);
+      langElt.previousElementSibling?.setAttribute("style", "display: none");
+      langElt.setAttribute("style", "display: none");
     }
   }
 

@@ -2,7 +2,7 @@ import { WidgetInterface } from "./widget-interface";
 import { PageManager } from "../pagination/page-manager";
 import { GithubRepoApis } from "../api/github-repo-apis";
 
-export class ProjectWidget implements WidgetInterface<void> {
+export class OpenSourceProjectWidget implements WidgetInterface<void> {
 
   private projects = [
     new _Project("coffee-ride", "Optimizes bike rides for maximum coffee stops using spring-boot for server services and nodejs, npm and vite for static site compilation"),

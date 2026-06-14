@@ -1,6 +1,6 @@
 import { PageRenderer } from "../pagination/page-renderer"
 import { LanguageWidget } from "../widgets/language-widget";
-import { ProjectWidget } from "../widgets/project-widget";
+import { OpenSourceProjectWidget } from "../widgets/open-source-project-widget";
 import { HeroTaglineWidget } from "../widgets/hero-tagline-widget";
 import { HomeSummaryWidget } from "../widgets/home-summary-widget";
 import { SocialsWidget } from "../widgets/socials-widget";
@@ -25,9 +25,9 @@ export class NavbarRenderer {
       new HeroTaglineWidget().renderOn("hero-tagline");
       new HomeSummaryWidget().renderOn("home-summary");
       new SocialsWidget().renderOn("socials");
-      new ProjectWidget().renderOn("open-source-projects");
+      new OpenSourceProjectWidget().renderOn("open-source-projects");
     }),
-    new _Page("Open Source Projects", "./assets/pages/osp.html", "open-source-projects", () => { new ProjectWidget().renderOn("open-source-projects");}),
+    new _Page("Open Source Projects", "./assets/pages/osp.html", "open-source-projects", () => { new OpenSourceProjectWidget().renderOn("open-source-projects");}),
     new _Page("Closed Source Projects", "./assets/pages/csp.html", "closed-source-projects", () => { new ClosedSourceProjectWidget().renderOn("closed-source-projects"); }),
     new _Page("Community Resources", "./assets/pages/cdp.html", "community-resources"),
     new _Page("Notes", "./assets/pages/notes.html", "notes", () => { new LanguageWidget().renderOn("programming-languages"); })

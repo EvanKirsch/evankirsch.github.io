@@ -33,7 +33,7 @@ export class GithubRepoApis {
     return languageBytes;
   }
 
-  public async preloadLaugaugeApis() {
+  public async preloadLanguageApis() {
     const repoEndpoints = await this.getMyRepoEndpoints();
     for (let i in repoEndpoints) {
       this.getRepoLanguages(repoEndpoints[i]);

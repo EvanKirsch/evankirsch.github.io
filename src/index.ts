@@ -6,4 +6,4 @@ navbarRenderer.renderNavbar();
 
 // pre-loading api calls into request manager cache
 const githubRepoApis = new GithubRepoApis();
-githubRepoApis.preloadLaugaugeApis();
+githubRepoApis.preloadLanguageApis();

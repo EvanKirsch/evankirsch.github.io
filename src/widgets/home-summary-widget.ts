@@ -18,10 +18,8 @@ export class HomeSummaryWidget implements WidgetInterface<void> {
     coffeeRideLink.innerText = "coffeeride.io";
 
     p.append(
-      "Working in SE Wisconsin and attending grad school at UWM. " +
-      "My current passion project is ",
-      coffeeRideLink,
-      ". Looking to continue working on whimsical projects and " +
+      "Working in SE Wisconsin at S.C. Johnson and attending grad school at UWM. " +
+      "Looking to continue working on whimsical projects and " +
       "get involved in grassroots software in order to give back to SE Wisconsin."
     );
 

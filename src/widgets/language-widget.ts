@@ -1,6 +1,7 @@
 import { GithubRepoApis } from "../api/github-repo-apis"
 import { WidgetInterface } from "./widget-interface";
 import { PageManager } from "../pagination/page-manager";
+import { getLanguageColor } from "./language-colors";
 
 export class LanguageWidget implements WidgetInterface<void> {
 
@@ -22,66 +23,65 @@ export class LanguageWidget implements WidgetInterface<void> {
 
   private buildLanguageWidget(myLanguages : Map<String, number>) : HTMLElement {
     const sortedLanguages = new Map([...myLanguages.entries()].sort((a, b) => b[1] - a[1])); // sort high to low
-    let totalSize = 0; 
+    let totalSize = 0;
     myLanguages.values().forEach(elt => totalSize = totalSize + elt);
-    let widget = document.createElement("table");
-    widget.classList.add("table")
-    let body = document.createElement("tbody");
 
-    widget.appendChild(this.buildHeaders());
-    widget.appendChild(body)
+    const widget = document.createElement("div");
+    widget.classList.add("lang-widget");
 
-    let c = 1; // counter for rank
+    const list = document.createElement("ul");
+    list.classList.add("lang-list");
+
+    let c = 0;
     sortedLanguages.forEach((v, k) => {
-      let langEntry = document.createElement("tr");
-
-      let th = document.createElement("th");
-      let tdLang = document.createElement("td");
-      let tdPerc = document.createElement("td");
-
-      th.scope = "row";
-      tdPerc.classList.add("text-right")
-
-      th.innerText = c.toString();
+      const name = k.toString();
+      const percent = (100 * (v/totalSize)).toFixed(2).toString() + "%";
+      const color = getLanguageColor(name, c);
       c++;
-      tdLang.innerText = k.toString();
-      tdPerc.innerText = (100 * (v/totalSize)).toFixed(2).toString() + "%";
 
-      langEntry.appendChild(th);
-      langEntry.appendChild(tdLang);
-      langEntry.appendChild(tdPerc);
-
-      body.appendChild(langEntry);
+      list.appendChild(this.buildLanguageRow(c, name, percent, color));
     });
+
+    widget.appendChild(list);
 
     return widget;
   }
 
-  private buildHeaders() : HTMLElement {
-    const thead = document.createElement("thead"); 
-    const tr = document.createElement("tr")
+  private buildLanguageRow(rank : number, name : string, percent : string, color : string) : HTMLElement {
+    const row = document.createElement("li");
+    row.classList.add("lang-row");
 
-    const rank = document.createElement("th");
-    const lang =  document.createElement("th");
-    const percent = document.createElement("th");
+    const rankElt = document.createElement("span");
+    rankElt.classList.add("lang-rank");
+    rankElt.innerText = rank.toString();
 
-    rank.scope = "col";
-    lang.scope = "col";
-    percent.scope = "col";
+    const dot = document.createElement("span");
+    dot.classList.add("lang-dot");
+    dot.style.backgroundColor = color;
 
-    rank.innerText = "#";
-    lang.innerText = "Language";
-    percent.innerText = "Percent";
+    const nameElt = document.createElement("span");
+    nameElt.classList.add("lang-name");
+    nameElt.innerText = name;
 
-    percent.classList.add("text-right")
+    const track = document.createElement("span");
+    track.classList.add("lang-track");
+    const fill = document.createElement("span");
+    fill.classList.add("lang-fill");
+    fill.style.width = percent;
+    fill.style.backgroundColor = color;
+    track.appendChild(fill);
 
-    tr.appendChild(rank);
-    tr.appendChild(lang);
-    tr.appendChild(percent);
+    const percentElt = document.createElement("span");
+    percentElt.classList.add("lang-percent");
+    percentElt.innerText = percent;
 
-    thead.appendChild(tr);
+    row.appendChild(rankElt);
+    row.appendChild(dot);
+    row.appendChild(nameElt);
+    row.appendChild(track);
+    row.appendChild(percentElt);
 
-    return thead;
+    return row;
   }
 
 }

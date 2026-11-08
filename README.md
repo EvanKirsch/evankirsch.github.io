@@ -5,9 +5,9 @@ Personal portfolio website for [evankirsch.org](https://evankirsch.org), compile
 ## :desktop_computer: Commands
 
 ```bash
-npm install          # install dependencies
-npm run build        # compile TS via Vite → dist/, then copy assets/
-npx http-server      # run app and serve files in `dist/`
+    npm install          # install dependencies
+    npm run build        # compile TS via Vite → dist/, then copy assets/
+    npx http-server      # run app and serve files in `dist/`
 ```
 
 ## :hammer_and_wrench: Structure

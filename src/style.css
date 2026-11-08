@@ -60,3 +60,103 @@ body {
   color: #bbb;
   margin: 0 8px;
 }
+
+.lang-widget {
+  margin: 8px 0 24px;
+}
+
+.lang-stacked-bar {
+  display: flex;
+  height: 10px;
+  border-radius: 5px;
+  overflow: hidden;
+  background-color: #eaeef2;
+  margin-bottom: 16px;
+}
+
+.lang-segment {
+  display: block;
+  height: 100%;
+}
+
+.lang-segment + .lang-segment {
+  border-left: 2px solid #fff;
+}
+
+.lang-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.lang-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.lang-row:last-child {
+  border-bottom: none;
+}
+
+.lang-rank {
+  width: 20px;
+  text-align: right;
+  font-size: 13px;
+  color: #999;
+  font-variant-numeric: tabular-nums;
+}
+
+.lang-dot {
+  flex: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.lang-name {
+  flex: 0 0 140px;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.lang-track {
+  flex: 1;
+  height: 6px;
+  border-radius: 3px;
+  background-color: #eaeef2;
+  overflow: hidden;
+}
+
+.lang-fill {
+  display: block;
+  height: 100%;
+  border-radius: 3px;
+}
+
+.lang-percent {
+  flex: none;
+  width: 64px;
+  text-align: right;
+  font-size: 14px;
+  color: #555;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 480px) {
+  .lang-name {
+    flex-basis: 96px;
+  }
+}
+
+.project-lang {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  color: #444;
+}
